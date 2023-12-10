@@ -1,5 +1,6 @@
 package com.example.savingsquadsfrontend.screens
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
@@ -11,16 +12,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import com.example.savingsquadsfrontend.composable.CustomTopBar
 import com.example.savingsquadsfrontend.ui.theme.SavingsquadsfrontendTheme
 
 @Composable
 fun VoucherRedemptionScreen (navController: NavController) {
 
-
-    Text(
-        text = "VoucherRedemptionScreen",
-        modifier = Modifier
-    )
+   Column {
+       CustomTopBar(screenName = "HomeScreen", navController = navController, prevScreenTitle = "Home")
+   }
 
     Button(
         modifier = Modifier.wrapContentSize(),
