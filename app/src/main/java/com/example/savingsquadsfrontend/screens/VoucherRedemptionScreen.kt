@@ -1,34 +1,85 @@
 package com.example.savingsquadsfrontend.screens
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material3.Button
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.savingsquadsfrontend.composable.CustomTopBar
+import com.example.savingsquadsfrontend.composable.VoucherCardRedeem
+import com.example.savingsquadsfrontend.data.VoucherRedeem
 import com.example.savingsquadsfrontend.ui.theme.SavingsquadsfrontendTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun VoucherRedemptionScreen (navController: NavController) {
 
-   Column {
-       CustomTopBar(screenName = "HomeScreen", navController = navController, prevScreenTitle = "Home")
-   }
+    // Hardcoded - Change later
+    val voucherList = listOf<VoucherRedeem>(
+        VoucherRedeem("$5 Off", "100 Points"),
+        VoucherRedeem("$10 Off", "200 Points"),
+        VoucherRedeem("$20 Off", "400 points"),
+        VoucherRedeem("$5 Off", "100 Points"),
+        VoucherRedeem("$10 Off", "200 Points"),
+        VoucherRedeem("$20 Off", "400 points"),
+        VoucherRedeem("$5 Off", "100 Points"),
+        VoucherRedeem("$10 Off", "200 Points"),
+        VoucherRedeem("$20 Off", "400 points"),
+    )
 
-    Button(
-        modifier = Modifier.wrapContentSize(),
-        onClick = { navController.navigate("VoucherSelectionScreen") }
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        topBar = {
+            CustomTopBar(screenName = "HomeScreen", navController = navController, prevScreenTitle = "Home")
+        }
     ) {
-        Text(text = "Next Screen")
-    }
+        values -> LazyColumn (
+           modifier = Modifier
+               .fillMaxSize()
+               .padding(values),
+            horizontalAlignment = Alignment.CenterHorizontally
+       ){
 
+            item {
+                Spacer(modifier = Modifier.height(40.dp))
+            }
+
+            item {
+                PointDisplayCard()
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(20.dp))
+            }
+
+
+        items(voucherList) {
+               voucher ->
+               VoucherCardRedeem(voucher)
+           }
+       }
+    }
 }
 
 @Preview(showBackground = true)
@@ -48,3 +99,27 @@ fun VoucherRedemptionScreenPreview() {
         }
     }
 }
+
+
+@Composable
+fun PointDisplayCard() {
+    Card (
+        modifier = Modifier
+            .width(300.dp)
+            .height(66.dp),
+        ){
+
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.Start
+        ) {
+            Text(
+                modifier = Modifier.padding(start = 20.dp),
+                text = "800 Points",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold)
+        }
+    }
+}
+

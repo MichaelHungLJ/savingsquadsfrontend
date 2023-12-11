@@ -1,12 +1,13 @@
 package com.example.savingsquadsfrontend.composable
 
-import android.widget.Space
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -26,17 +27,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
 import com.example.savingsquadsfrontend.R
-import com.example.savingsquadsfrontend.VoucherApp
+import com.example.savingsquadsfrontend.data.VoucherRedeem
 import com.example.savingsquadsfrontend.ui.theme.SavingsquadsfrontendTheme
 
 
 @Composable
-fun VoucherCardRedeem () {
+fun VoucherCardRedeem(voucher: VoucherRedeem) {
     Card (
         modifier = Modifier
             .width(300.dp)
-            .height(60.dp),
-        shape = RoundedCornerShape(0.dp),
+            .height(60.dp)
+            .padding(top = 10.dp, bottom = 10.dp),
         ){
 
         Row (
@@ -49,7 +50,7 @@ fun VoucherCardRedeem () {
                     .size(90.dp, 60.dp)
                     .padding(start = 15.dp, end = 15.dp),
                 painter = painterResource(id = R.drawable.voucher),
-                contentDescription = "$5 voucher",
+                contentDescription = voucher.title,
                 contentScale = ContentScale.Crop,
             )
 
@@ -57,12 +58,12 @@ fun VoucherCardRedeem () {
                 modifier = Modifier.weight(1f),
                 ){
                 Text(
-                    text = "$5 Off",
+                    text = voucher.title,
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "100 Points",
+                    text = voucher.points,
                     fontSize = 10.sp
                 )
             }
@@ -88,8 +89,9 @@ fun VoucherCardRedeem () {
 @Composable
 fun VoucherCardRedeemPreview () {
     val fakeNavController = rememberNavController() // Create a fake NavController for preview
+    val fiveDollarVoucher = VoucherRedeem("$5", "100 Points")
     SavingsquadsfrontendTheme {
-        VoucherCardRedeem()
+        VoucherCardRedeem(fiveDollarVoucher)
     }
 }
 
