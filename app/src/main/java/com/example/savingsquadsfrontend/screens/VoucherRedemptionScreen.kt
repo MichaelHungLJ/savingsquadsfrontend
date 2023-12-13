@@ -52,7 +52,7 @@ fun VoucherRedemptionScreen (navController: NavController) {
         modifier = Modifier.fillMaxSize(),
         topBar = {
             CustomTopBar(screenName = "HomeScreen", navController = navController, prevScreenTitle = "Home")
-        }
+        },
     ) {
         values -> LazyColumn (
            modifier = Modifier

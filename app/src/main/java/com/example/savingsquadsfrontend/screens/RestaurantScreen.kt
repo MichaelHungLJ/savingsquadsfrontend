@@ -12,19 +12,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import com.example.savingsquadsfrontend.composable.CustomBottomBar
 import com.example.savingsquadsfrontend.composable.CustomTopBar
 import com.example.savingsquadsfrontend.ui.theme.SavingsquadsfrontendTheme
 
 @Composable
 fun RestaurantScreen(navController: NavController) {
 
-//
+
 //    Scaffold (
 //        modifier = Modifier.fillMaxSize(),
 //        topBar = {
 //            CustomTopBar(screenName = "HomeScreen", navController = navController, prevScreenTitle = "Home")
-//        }
-//    ){values ->
+//        },
+//        bottomBar = { CustomBottomBar(navController = navController, nextPage = "CartScreen", buttonName = "Checkout")}
+//    ){
+//        values ->
 //
 //    }
 }
