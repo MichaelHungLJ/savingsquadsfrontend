@@ -28,7 +28,7 @@ import com.example.savingsquadsfrontend.R
 import com.example.savingsquadsfrontend.data.RestaurantItem
 
 @Composable
-fun RestaurantItemCard(name: String, price: Double, image: Int, desc: String ) {
+fun RestaurantItemCard(restaurantItem: RestaurantItem) {
 
     Card (
         modifier = Modifier
@@ -44,8 +44,8 @@ fun RestaurantItemCard(name: String, price: Double, image: Int, desc: String ) {
                     .width(100.dp)
                     .fillMaxHeight(),
                 contentScale = ContentScale.FillBounds,
-                painter = painterResource(id = image),
-                contentDescription = desc)
+                painter = painterResource(id = restaurantItem.image),
+                contentDescription = restaurantItem.desc)
 
             Column (
                 modifier = Modifier
@@ -54,10 +54,10 @@ fun RestaurantItemCard(name: String, price: Double, image: Int, desc: String ) {
                     .padding(start = 4.dp, 8.dp)
             ){
                 Text(
-                    text = name,
+                    text = restaurantItem.name,
                     fontWeight = FontWeight.Bold)
                 Text(
-                    text = "$"+ String.format("%.2f", price),
+                    text = "$"+ String.format("%.2f", restaurantItem.price),
                     modifier = Modifier.padding(top=4.dp))
             }
 
@@ -119,5 +119,8 @@ fun FoodCounter(){
 @Preview(showBackground = true)
 @Composable
 fun RestaurantItemCardPreview(){
-    RestaurantItemCard("Tea with Honey", 6.00, R.drawable.teawithhoney, "Cheapest tea paired with fake honey")
+
+    val item = RestaurantItem("Tea with Honey", 6.00, R.drawable.teawithhoney, "Cheapest tea paired with fake honey")
+
+    RestaurantItemCard(restaurantItem = item)
 }

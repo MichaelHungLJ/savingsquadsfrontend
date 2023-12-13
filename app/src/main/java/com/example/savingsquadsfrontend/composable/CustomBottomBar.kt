@@ -3,8 +3,11 @@ package com.example.savingsquadsfrontend.composable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -26,14 +29,15 @@ import androidx.navigation.compose.rememberNavController
 fun CustomBottomBar (navController: NavController, nextPage: String,buttonName: String) {
     Column (
         modifier = Modifier
-            .width(300.dp)
+            .fillMaxWidth()
             .height(80.dp).background(Color.LightGray),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Button(
             onClick = { navController.navigate(nextPage) },
-            modifier = Modifier.width(260.dp).height(60.dp),
+            modifier = Modifier.fillMaxSize()
+                .padding(horizontal = 30.dp,vertical = 10.dp),
             shape = RoundedCornerShape(0.dp),
             colors = ButtonDefaults.buttonColors(
                 contentColor = Color.Black ,
