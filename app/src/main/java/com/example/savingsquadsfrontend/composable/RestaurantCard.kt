@@ -26,7 +26,7 @@ import com.example.savingsquadsfrontend.ui.theme.SavingsquadsfrontendTheme
 
 
 @Composable
-fun RestaurantCard (navController: NavController, resTitle: String, resImage: Int) {
+fun RestaurantCard (navController: NavController, resTitle: String, resImage: Int, clickable: Boolean) {
     ElevatedCard (
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
@@ -34,7 +34,9 @@ fun RestaurantCard (navController: NavController, resTitle: String, resImage: In
         shape = RoundedCornerShape(0.dp),
         modifier = Modifier
             .size(width = 300.dp, height = 150.dp)
-            .clickable { navController.navigate("RestaurantScreen") }
+            .clickable(
+                enabled = clickable
+            ) { navController.navigate("RestaurantScreen") }
         ,
     ){
         Column (
@@ -49,7 +51,7 @@ fun RestaurantCard (navController: NavController, resTitle: String, resImage: In
                 contentScale = ContentScale.FillBounds
             )
             Text(
-                modifier = Modifier.padding(start = 14.dp, top = 6.dp),
+                modifier = Modifier.padding(start = 10.dp, top = 8.dp),
                 fontSize = 12.sp,
                 text = resTitle
             )
@@ -63,6 +65,6 @@ fun RestaurantCard (navController: NavController, resTitle: String, resImage: In
 fun RestaurantCardPreview() {
     val fakeNavController = rememberNavController() // Create a fake NavController for preview
     SavingsquadsfrontendTheme {
-        RestaurantCard(navController = fakeNavController, "Restaurant Name", R.drawable.restaurantimage)
+        RestaurantCard(navController = fakeNavController, "Restaurant Name", R.drawable.restaurantimage, clickable = true)
     }
 }
