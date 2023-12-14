@@ -32,7 +32,7 @@ fun HomeScreen(navController: NavController) {
 
         PointCard(navController = navController)
 
-        RestaurantCard(navController, "Restaurant Name", R.drawable.restaurantimage)
+        RestaurantCard(navController, "Restaurant Name", R.drawable.restaurantimage, true)
     }
 }
 

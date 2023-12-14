@@ -34,11 +34,13 @@ import com.example.savingsquadsfrontend.ui.theme.SavingsquadsfrontendTheme
 @Composable
 fun RestaurantScreen(navController: NavController) {
 
+
+
     val RestaurantItemList = listOf<RestaurantItem>(
         RestaurantItem("Tea with Honey", 6.00, R.drawable.teawithhoney, "Cheapest tea paired with fake honey"),
-        RestaurantItem("Tea with Honey", 6.00, R.drawable.teawithhoney, "Cheapest tea paired with fake honey"),
-        RestaurantItem("Tea with Honey", 6.00, R.drawable.teawithhoney, "Cheapest tea paired with fake honey"),
-        RestaurantItem("Tea with Honey", 6.00, R.drawable.teawithhoney, "Cheapest tea paired with fake honey"),
+        RestaurantItem("Tea with Mango", 7.50, R.drawable.teawithmango, "Cheapest tea paired with fake honey"),
+        RestaurantItem("Bubble Tea", 5.50, R.drawable.bubblemilktea, "Cheapest tea paired with fake honey"),
+        RestaurantItem("Brown Sugar Tea", 8.50, R.drawable.brownsugarbubbletea, "Cheapest tea paired with fake honey"),
     )
 
     Scaffold (
@@ -61,16 +63,17 @@ fun RestaurantScreen(navController: NavController) {
                 Spacer(modifier = Modifier.height(40.dp))
             }
 
-    //        item {
-    //            RestaurantCard()
-    //        }
+            item {
+                RestaurantCard(navController, "Chi Cha San Chen", R.drawable.chichasanchen, false)
+            }
 
             item {
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(30.dp))
             }
 
             items(RestaurantItemList) {
                     item ->
+                Spacer(modifier = Modifier.height(20.dp))
                 RestaurantItemCard(item)
             }
         }

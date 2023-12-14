@@ -24,6 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.savingsquadsfrontend.R
 import com.example.savingsquadsfrontend.data.RestaurantItem
 
@@ -55,7 +56,8 @@ fun RestaurantItemCard(restaurantItem: RestaurantItem) {
             ){
                 Text(
                     text = restaurantItem.name,
-                    fontWeight = FontWeight.Bold)
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 14.sp)
                 Text(
                     text = "$"+ String.format("%.2f", restaurantItem.price),
                     modifier = Modifier.padding(top=4.dp))
