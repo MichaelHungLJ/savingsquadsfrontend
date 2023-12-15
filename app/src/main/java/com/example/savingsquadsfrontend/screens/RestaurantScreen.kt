@@ -26,6 +26,7 @@ import com.example.savingsquadsfrontend.composable.CustomTopBar
 import com.example.savingsquadsfrontend.composable.RestaurantCard
 import com.example.savingsquadsfrontend.composable.RestaurantItemCard
 import com.example.savingsquadsfrontend.composable.VoucherCardRedeem
+import com.example.savingsquadsfrontend.data.Restaurant
 import com.example.savingsquadsfrontend.data.RestaurantItem
 import com.example.savingsquadsfrontend.data.VoucherRedeem
 import com.example.savingsquadsfrontend.ui.theme.SavingsquadsfrontendTheme
@@ -34,6 +35,7 @@ import com.example.savingsquadsfrontend.ui.theme.SavingsquadsfrontendTheme
 @Composable
 fun RestaurantScreen(navController: NavController) {
 
+    val restaurant = Restaurant("Chi Cha San Chen", R.drawable.chichasanchen)
 
 
     val RestaurantItemList = listOf<RestaurantItem>(
@@ -64,7 +66,7 @@ fun RestaurantScreen(navController: NavController) {
             }
 
             item {
-                RestaurantCard(navController, "Chi Cha San Chen", R.drawable.chichasanchen, false)
+                RestaurantCard(navController, restaurant, false)
             }
 
             item {

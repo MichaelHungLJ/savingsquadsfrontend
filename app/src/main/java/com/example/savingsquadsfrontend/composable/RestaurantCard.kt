@@ -22,11 +22,12 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.savingsquadsfrontend.R
+import com.example.savingsquadsfrontend.data.Restaurant
 import com.example.savingsquadsfrontend.ui.theme.SavingsquadsfrontendTheme
 
 
 @Composable
-fun RestaurantCard (navController: NavController, resTitle: String, resImage: Int, clickable: Boolean) {
+fun RestaurantCard (navController: NavController, restaurant: Restaurant, clickable: Boolean) {
     ElevatedCard (
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
@@ -43,7 +44,7 @@ fun RestaurantCard (navController: NavController, resTitle: String, resImage: In
             modifier = Modifier,
             ) {
             Image(
-                painter = painterResource(id = resImage),
+                painter = painterResource(id = restaurant.image),
                 contentDescription = "Restuarant Image",
                 modifier = Modifier
                     .fillMaxWidth()
@@ -53,7 +54,7 @@ fun RestaurantCard (navController: NavController, resTitle: String, resImage: In
             Text(
                 modifier = Modifier.padding(start = 10.dp, top = 8.dp),
                 fontSize = 12.sp,
-                text = resTitle
+                text = restaurant.name
             )
         }
     }
@@ -64,7 +65,10 @@ fun RestaurantCard (navController: NavController, resTitle: String, resImage: In
 @Composable
 fun RestaurantCardPreview() {
     val fakeNavController = rememberNavController() // Create a fake NavController for preview
+
+    val restaurant1 = Restaurant("22G Coffee", R.drawable._22g)
+
     SavingsquadsfrontendTheme {
-        RestaurantCard(navController = fakeNavController, "Restaurant Name", R.drawable.restaurantimage, clickable = true)
+        RestaurantCard(navController = fakeNavController, restaurant1, clickable = true)
     }
 }
