@@ -1,4 +1,4 @@
-package com.example.savingsquadsfrontend.ui.theme
+package com.example.savingsquadsfrontend.view.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

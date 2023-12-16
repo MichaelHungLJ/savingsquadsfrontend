@@ -1,4 +1,4 @@
-package com.example.savingsquadsfrontend.composable
+package com.example.savingsquadsfrontend.view.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -26,7 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.savingsquadsfrontend.R
-import com.example.savingsquadsfrontend.data.RestaurantItem
+import com.example.savingsquadsfrontend.viewModel.RestaurantItem
 
 @Composable
 fun RestaurantItemCard(restaurantItem: RestaurantItem) {
