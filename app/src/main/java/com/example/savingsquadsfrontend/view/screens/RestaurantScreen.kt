@@ -81,6 +81,8 @@ fun RestaurantScreenPreview() {
 
     val fakeContext = LocalContext.current
     val fakeNavController = NavController(fakeContext)
+    val restaurantViewModel = RestaurantViewModel()
+    val index = 0 // First restaurant
 
     SavingsquadsfrontendTheme {
         // A surface container using the 'background' color from the theme
@@ -88,7 +90,7 @@ fun RestaurantScreenPreview() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-//            RestaurantScreen(fakeNavController)
+            RestaurantScreen(fakeNavController, restaurantViewModel, index)
         }
     }
 }

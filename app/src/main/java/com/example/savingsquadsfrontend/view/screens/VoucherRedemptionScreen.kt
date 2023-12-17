@@ -16,6 +16,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -28,23 +30,16 @@ import com.example.savingsquadsfrontend.view.components.CustomTopBar
 import com.example.savingsquadsfrontend.view.components.VoucherCardRedeem
 import com.example.savingsquadsfrontend.model.data.VoucherRedeem
 import com.example.savingsquadsfrontend.view.theme.SavingsquadsfrontendTheme
+import com.example.savingsquadsfrontend.viewModel.RestaurantViewModel
+import com.example.savingsquadsfrontend.viewModel.VoucherRedemptionViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun VoucherRedemptionScreen (navController: NavController) {
+fun VoucherRedemptionScreen (navController: NavController, voucherRedemptionViewModel: VoucherRedemptionViewModel) {
 
-    // Hardcoded - Change later
-    val voucherList = listOf<VoucherRedeem>(
-        VoucherRedeem("$5 Off", "100 Points"),
-        VoucherRedeem("$10 Off", "200 Points"),
-        VoucherRedeem("$20 Off", "400 points"),
-        VoucherRedeem("$5 Off", "100 Points"),
-        VoucherRedeem("$10 Off", "200 Points"),
-        VoucherRedeem("$20 Off", "400 points"),
-        VoucherRedeem("$5 Off", "100 Points"),
-        VoucherRedeem("$10 Off", "200 Points"),
-        VoucherRedeem("$20 Off", "400 points"),
-    )
+    // Hardcoded data
+    val voucherRedemptionList by voucherRedemptionViewModel.voucherRedemptionList.collectAsState()
+
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -72,8 +67,7 @@ fun VoucherRedemptionScreen (navController: NavController) {
             }
 
 
-        items(voucherList) {
-               voucher ->
+        items(voucherRedemptionList) { voucher ->
                VoucherCardRedeem(voucher)
            }
        }
@@ -86,6 +80,7 @@ fun VoucherRedemptionScreenPreview() {
 
     val fakeContext = LocalContext.current
     val fakeNavController = NavController(fakeContext)
+    val voucherRedemptionViewModel = VoucherRedemptionViewModel()
 
     SavingsquadsfrontendTheme {
         // A surface container using the 'background' color from the theme
@@ -93,7 +88,7 @@ fun VoucherRedemptionScreenPreview() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            VoucherRedemptionScreen(fakeNavController)
+            VoucherRedemptionScreen(fakeNavController, voucherRedemptionViewModel)
         }
     }
 }
