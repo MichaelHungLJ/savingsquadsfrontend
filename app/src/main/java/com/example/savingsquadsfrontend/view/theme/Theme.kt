@@ -1,4 +1,4 @@
-package com.example.savingsquadsfrontend.ui.theme
+package com.example.savingsquadsfrontend.view.theme
 
 import android.app.Activity
 import android.os.Build

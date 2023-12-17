@@ -1,7 +1,6 @@
-package com.example.savingsquadsfrontend.screens
+package com.example.savingsquadsfrontend.view.screens
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -18,6 +16,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -26,27 +26,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.savingsquadsfrontend.composable.CustomTopBar
-import com.example.savingsquadsfrontend.composable.VoucherCardRedeem
-import com.example.savingsquadsfrontend.data.VoucherRedeem
-import com.example.savingsquadsfrontend.ui.theme.SavingsquadsfrontendTheme
+import com.example.savingsquadsfrontend.view.components.CustomTopBar
+import com.example.savingsquadsfrontend.view.components.VoucherCardRedeem
+import com.example.savingsquadsfrontend.model.data.VoucherRedeem
+import com.example.savingsquadsfrontend.view.theme.SavingsquadsfrontendTheme
+import com.example.savingsquadsfrontend.viewModel.RestaurantViewModel
+import com.example.savingsquadsfrontend.viewModel.VoucherRedemptionViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun VoucherRedemptionScreen (navController: NavController) {
+fun VoucherRedemptionScreen (navController: NavController, voucherRedemptionViewModel: VoucherRedemptionViewModel) {
 
-    // Hardcoded - Change later
-    val voucherList = listOf<VoucherRedeem>(
-        VoucherRedeem("$5 Off", "100 Points"),
-        VoucherRedeem("$10 Off", "200 Points"),
-        VoucherRedeem("$20 Off", "400 points"),
-        VoucherRedeem("$5 Off", "100 Points"),
-        VoucherRedeem("$10 Off", "200 Points"),
-        VoucherRedeem("$20 Off", "400 points"),
-        VoucherRedeem("$5 Off", "100 Points"),
-        VoucherRedeem("$10 Off", "200 Points"),
-        VoucherRedeem("$20 Off", "400 points"),
-    )
+    // Hardcoded data
+    val voucherRedemptionList by voucherRedemptionViewModel.voucherRedemptionList.collectAsState()
+
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -74,8 +67,7 @@ fun VoucherRedemptionScreen (navController: NavController) {
             }
 
 
-        items(voucherList) {
-               voucher ->
+        items(voucherRedemptionList) { voucher ->
                VoucherCardRedeem(voucher)
            }
        }
@@ -88,6 +80,7 @@ fun VoucherRedemptionScreenPreview() {
 
     val fakeContext = LocalContext.current
     val fakeNavController = NavController(fakeContext)
+    val voucherRedemptionViewModel = VoucherRedemptionViewModel()
 
     SavingsquadsfrontendTheme {
         // A surface container using the 'background' color from the theme
@@ -95,7 +88,7 @@ fun VoucherRedemptionScreenPreview() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            VoucherRedemptionScreen(fakeNavController)
+            VoucherRedemptionScreen(fakeNavController, voucherRedemptionViewModel)
         }
     }
 }
