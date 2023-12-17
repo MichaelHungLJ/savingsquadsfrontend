@@ -21,6 +21,7 @@ import com.example.savingsquadsfrontend.view.screens.RestaurantScreen
 import com.example.savingsquadsfrontend.view.screens.VoucherRedemptionScreen
 import com.example.savingsquadsfrontend.view.screens.VoucherSelectionScreen
 import com.example.savingsquadsfrontend.view.theme.SavingsquadsfrontendTheme
+import com.example.savingsquadsfrontend.viewModel.CartViewModel
 import com.example.savingsquadsfrontend.viewModel.RestaurantViewModel
 import com.example.savingsquadsfrontend.viewModel.VoucherRedemptionViewModel
 
@@ -28,6 +29,7 @@ class MainActivity : ComponentActivity() {
 
     private val restaurantViewModel by viewModels<RestaurantViewModel>()
     private val voucherRedemptionViewModel by viewModels<VoucherRedemptionViewModel>()
+    private val cartViewModel by viewModels<CartViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +43,7 @@ class MainActivity : ComponentActivity() {
                     VoucherApp(
                         restaurantViewModel = restaurantViewModel,
                         voucherRedemptionViewModel = voucherRedemptionViewModel,
+                        cartViewModel = cartViewModel,
                     )
                 }
             }
@@ -53,6 +56,7 @@ fun GreetingPreview() {
 
     val restaurantViewModel = RestaurantViewModel()
     val voucherRedemptionViewModel = VoucherRedemptionViewModel()
+    val cartViewModel = CartViewModel()
 
 
     SavingsquadsfrontendTheme {
@@ -62,7 +66,8 @@ fun GreetingPreview() {
         ) {
             VoucherApp(
                 restaurantViewModel = restaurantViewModel,
-                voucherRedemptionViewModel = voucherRedemptionViewModel
+                voucherRedemptionViewModel = voucherRedemptionViewModel,
+                cartViewModel = cartViewModel,
             )
         }
     }
@@ -71,7 +76,8 @@ fun GreetingPreview() {
 @Composable
 fun VoucherApp(
     restaurantViewModel: RestaurantViewModel,
-    voucherRedemptionViewModel: VoucherRedemptionViewModel
+    voucherRedemptionViewModel: VoucherRedemptionViewModel,
+    cartViewModel: CartViewModel
 ) {
     val navController = rememberNavController()
 
@@ -91,7 +97,7 @@ fun VoucherApp(
         }
 
         composable("CartScreen") {
-            CartScreen(navController = navController)
+            CartScreen(navController = navController, cartViewModel = cartViewModel)
         }
 
         composable("VoucherRedemptionScreen") {
