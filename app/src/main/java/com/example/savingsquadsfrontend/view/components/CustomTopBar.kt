@@ -25,7 +25,8 @@ fun CustomTopBar(screenName: String, navController: NavController, prevScreenTit
         },
         navigationIcon = {
             IconButton(
-                onClick = { navController.navigate(screenName) }
+                onClick = { if (screenName == "Backstack") navController.popBackStack()
+                    else navController.navigate(screenName) }
             ) {
                 Icon(
                     imageVector = Icons.Filled.ArrowBack,
@@ -37,7 +38,6 @@ fun CustomTopBar(screenName: String, navController: NavController, prevScreenTit
             containerColor = MaterialTheme.colorScheme.primaryContainer,
             titleContentColor = MaterialTheme.colorScheme.primary
         )
-
     )
 }
 

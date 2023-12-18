@@ -10,7 +10,11 @@ class CartViewModel : ViewModel() {
     private var _totalSum = MutableStateFlow(0.00)
     val totalSum = _totalSum.asStateFlow()
 
-    private var _cartList = MutableStateFlow(emptyList<CartItem>())
+    private var _cartList = MutableStateFlow(listOf<CartItem>(
+        CartItem("Bubble Tea", 5.50, 1),
+        CartItem("Honey Tea", 4.50, 2),
+        CartItem("Brown Sugar" , 5.50, 3)
+    ))
     val cartList = _cartList.asStateFlow()
 
     fun updateCartList (newCartList: List<CartItem>) {
