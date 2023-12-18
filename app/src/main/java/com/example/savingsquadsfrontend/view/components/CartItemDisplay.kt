@@ -3,6 +3,7 @@ package com.example.savingsquadsfrontend.view.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -32,7 +33,7 @@ fun CartItemDisplay (
 
     Row (
         modifier = Modifier
-            .width(250.dp)
+            .fillMaxWidth()
             .height(50.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
