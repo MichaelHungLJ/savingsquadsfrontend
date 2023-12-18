@@ -20,16 +20,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.savingsquadsfrontend.model.data.CartItem
 
 @Composable
 fun CartItemDisplay (
-    name: String,
-    price: Double,
-    quantity: Int
+    cartItem: CartItem
 ) {
 
-    var amount by remember { mutableDoubleStateOf(price * quantity) }
-    var count by remember { mutableIntStateOf(quantity) }
+    var amount by remember { mutableDoubleStateOf(cartItem.price * cartItem.quantity) }
+    var count by remember { mutableIntStateOf(cartItem.quantity) }
 
     Row (
         modifier = Modifier
@@ -39,7 +38,7 @@ fun CartItemDisplay (
         horizontalArrangement = Arrangement.SpaceBetween
     ){
         Text(
-            text = name,
+            text = cartItem.name,
             fontSize = 16.sp,
             modifier = Modifier.padding(start = 5.dp)
         )
@@ -54,7 +53,7 @@ fun CartItemDisplay (
             onQuantityChange = {
                 newCount ->
                 count = newCount
-                amount = price * newCount
+                amount = cartItem.price * newCount
             })
     }
 }
@@ -63,5 +62,6 @@ fun CartItemDisplay (
 @Composable
 fun CartItemDisplayPreview() {
 
-    CartItemDisplay("Bubble Tea", 5.50, 1)
+    val cartItem1 = CartItem("Bubble Tea", 5.50, 1)
+    CartItemDisplay(cartItem1)
 }
