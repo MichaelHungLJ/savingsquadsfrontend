@@ -24,6 +24,7 @@ import com.example.savingsquadsfrontend.view.components.CustomTopBar
 import com.example.savingsquadsfrontend.view.components.RestaurantCard
 import com.example.savingsquadsfrontend.view.components.RestaurantItemCard
 import com.example.savingsquadsfrontend.view.theme.SavingsquadsfrontendTheme
+import com.example.savingsquadsfrontend.viewModel.CartViewModel
 import com.example.savingsquadsfrontend.viewModel.RestaurantViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -32,6 +33,7 @@ fun RestaurantScreen(
     navController: NavController,
     restaurantViewModel: RestaurantViewModel,
     restaurantIndex:Int,
+    cartViewModel: CartViewModel
 ) {
 
     val restaurant = restaurantViewModel.restaurants.value[restaurantIndex]
@@ -67,7 +69,7 @@ fun RestaurantScreen(
             items(restaurant.menu) {
                     item ->
                 Spacer(modifier = Modifier.height(20.dp))
-                RestaurantItemCard(item)
+                RestaurantItemCard(item, cartViewModel)
             }
         }
 
@@ -83,6 +85,7 @@ fun RestaurantScreenPreview() {
     val fakeNavController = NavController(fakeContext)
     val restaurantViewModel = RestaurantViewModel()
     val index = 0 // First restaurant
+    val cartViewModel = CartViewModel()
 
     SavingsquadsfrontendTheme {
         // A surface container using the 'background' color from the theme
@@ -90,7 +93,7 @@ fun RestaurantScreenPreview() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            RestaurantScreen(fakeNavController, restaurantViewModel, index)
+            RestaurantScreen(fakeNavController, restaurantViewModel, index, cartViewModel)
         }
     }
 }

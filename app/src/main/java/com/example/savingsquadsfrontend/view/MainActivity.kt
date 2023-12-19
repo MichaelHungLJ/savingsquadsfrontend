@@ -93,7 +93,11 @@ fun VoucherApp(
             arguments = listOf(navArgument("restaurantIndex") { type = NavType.IntType })
         ) { backStackEntry ->
             val index = backStackEntry.arguments!!.getInt("restaurantIndex")
-            RestaurantScreen(navController = navController, restaurantViewModel = restaurantViewModel, restaurantIndex = index)
+            RestaurantScreen(
+                navController = navController,
+                restaurantViewModel = restaurantViewModel,
+                restaurantIndex = index,
+                cartViewModel = cartViewModel)
         }
 
         composable("CartScreen") {

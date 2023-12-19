@@ -1,5 +1,6 @@
 package com.example.savingsquadsfrontend.view.components
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -13,6 +14,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -26,10 +28,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.savingsquadsfrontend.R
+import com.example.savingsquadsfrontend.model.data.CartItem
+import com.example.savingsquadsfrontend.viewModel.CartViewModel
 import com.example.savingsquadsfrontend.viewModel.RestaurantItem
 
 @Composable
-fun RestaurantItemCard(restaurantItem: RestaurantItem) {
+fun RestaurantItemCard(restaurantItem: RestaurantItem, cartViewModel: CartViewModel) {
+
+    var quantity by remember { mutableIntStateOf(0) }
 
     Card (
         modifier = Modifier
@@ -63,15 +69,23 @@ fun RestaurantItemCard(restaurantItem: RestaurantItem) {
                     modifier = Modifier.padding(top=4.dp))
             }
 
-            FoodCounter()
+            FoodCounter(
+                quantity,
+                onCounterChange = {
+                    newCount ->
+                    quantity = newCount
+                    cartViewModel.addToCart(CartItem(restaurantItem.name,restaurantItem.price,quantity))
+
+                }
+            )
         }
     }
 }
 
 @Composable
-fun FoodCounter(){
-    // Hardcoded value
-    var count by remember { mutableStateOf(0) }
+fun FoodCounter(quantity: Int, onCounterChange: (Int)-> Unit){
+
+    var count by remember { mutableIntStateOf(quantity) }
 
     Row (
         modifier = Modifier
@@ -82,7 +96,9 @@ fun FoodCounter(){
         verticalAlignment = Alignment.CenterVertically
     ){
         Button(
-            onClick = { if (count > 0) count-- },
+            onClick = { if (count > 0) count--
+                      onCounterChange(count)
+                      },
             modifier = Modifier
                 .width(20.dp)
                 .fillMaxHeight(),
@@ -102,7 +118,9 @@ fun FoodCounter(){
         )
 
         Button(
-            onClick = { count++ },
+            onClick = { count++
+                        onCounterChange(count)
+                      },
             modifier = Modifier
                 .width(20.dp)
                 .fillMaxHeight(),
@@ -121,8 +139,8 @@ fun FoodCounter(){
 @Preview(showBackground = true)
 @Composable
 fun RestaurantItemCardPreview(){
-
+    val cartViewModel = CartViewModel()
     val item = RestaurantItem("Tea with Honey", 6.00, R.drawable.teawithhoney, "Cheapest tea paired with fake honey")
 
-    RestaurantItemCard(restaurantItem = item)
+    RestaurantItemCard(restaurantItem = item, cartViewModel)
 }
