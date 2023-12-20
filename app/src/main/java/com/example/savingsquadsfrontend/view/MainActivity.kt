@@ -10,6 +10,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -93,7 +94,11 @@ fun VoucherApp(
             arguments = listOf(navArgument("restaurantIndex") { type = NavType.IntType })
         ) { backStackEntry ->
             val index = backStackEntry.arguments!!.getInt("restaurantIndex")
-            RestaurantScreen(navController = navController, restaurantViewModel = restaurantViewModel, restaurantIndex = index)
+            RestaurantScreen(
+                navController = navController,
+                restaurantViewModel = restaurantViewModel,
+                restaurantIndex = index,
+                cartViewModel = cartViewModel)
         }
 
         composable("CartScreen") {

@@ -1,5 +1,6 @@
 package com.example.savingsquadsfrontend.view.components
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableIntStateOf
@@ -22,14 +24,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.savingsquadsfrontend.model.data.CartItem
+import com.example.savingsquadsfrontend.viewModel.CartViewModel
 
 @Composable
 fun CartItemDisplay (
-    cartItem: CartItem
+    cartItem: CartItem,
+    cartViewModel: CartViewModel
 ) {
-
     var amount by remember { mutableDoubleStateOf(cartItem.price * cartItem.quantity) }
     var count by remember { mutableIntStateOf(cartItem.quantity) }
+
+    val cartList by cartViewModel.cartList.collectAsState()
+
 
     Row (
         modifier = Modifier
@@ -55,6 +61,10 @@ fun CartItemDisplay (
                 newCount ->
                 count = newCount
                 amount = cartItem.price * newCount
+                if (newCount != 0) cartViewModel.addToCart(CartItem(cartItem.name,cartItem.price,count))
+                else cartViewModel.removeFromCart(CartItem(cartItem.name,cartItem.price,count))
+                Log.d("CartItemDisplay", "${cartItem.name} added to cart with count: $count")
+                Log.d("CartItemDisplay", "Here's the updated cartList: $cartList")
             })
     }
 }
@@ -63,6 +73,8 @@ fun CartItemDisplay (
 @Composable
 fun CartItemDisplayPreview() {
 
+    val cartViewModel = CartViewModel()
+
     val cartItem1 = CartItem("Bubble Tea", 5.50, 1)
-    CartItemDisplay(cartItem1)
+    CartItemDisplay(cartItem1,cartViewModel)
 }

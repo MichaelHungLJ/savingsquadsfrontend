@@ -1,5 +1,6 @@
 package com.example.savingsquadsfrontend.view.screens
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,6 +29,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.savingsquadsfrontend.model.data.CartItem
 import com.example.savingsquadsfrontend.view.components.CartCostBar
 import com.example.savingsquadsfrontend.view.components.CartItemDisplay
 import com.example.savingsquadsfrontend.view.components.CustomBottomBar
@@ -40,6 +42,10 @@ import com.example.savingsquadsfrontend.viewModel.CartViewModel
 fun CartScreen (navController: NavController, cartViewModel: CartViewModel) {
 
     val cartList by cartViewModel.cartList.collectAsState()
+    val totalCost by cartViewModel.totalSum.collectAsState()
+
+    Log.d("Cart Screen", "Initial Cart List: ${cartViewModel.cartList.collectAsState()}" )
+
 
     Scaffold (
         modifier = Modifier,
@@ -66,7 +72,7 @@ fun CartScreen (navController: NavController, cartViewModel: CartViewModel) {
                     Spacer(modifier = Modifier.padding(top = 10.dp))
 
                     cartList.forEach { item ->
-                        CartItemDisplay(cartItem = item)
+                        CartItemDisplay(cartItem = item,cartViewModel = cartViewModel)
                     }
                 }
             }
@@ -86,7 +92,7 @@ fun CartScreen (navController: NavController, cartViewModel: CartViewModel) {
                 ){
                     Spacer(modifier = Modifier.padding(top = 10.dp))
 
-                    CartCostBar(name = "Sub total", cost = 50.55)
+                    CartCostBar(name = "Sub total", cost = totalCost)
 
                     CartCostBar(name = "Delivery Fee", cost = 3.99)
                 }
@@ -103,6 +109,15 @@ fun CartScreenPreview() {
     val fakeContext = LocalContext.current
     val fakeNavController = NavController(fakeContext)
     val cartViewModel = CartViewModel()
+
+    val item1 = CartItem("Tea with Honey", 6.00, 2)
+    val item2 = CartItem("Tea with Mango", 7.50, 1)
+    val item3 = CartItem("Bubble Tea", 5.50, 3)
+
+    cartViewModel.addToCart(item1)
+    cartViewModel.addToCart(item2)
+    cartViewModel.addToCart(item3)
+    cartViewModel.updateTotalSum()
 
     SavingsquadsfrontendTheme {
         Surface(

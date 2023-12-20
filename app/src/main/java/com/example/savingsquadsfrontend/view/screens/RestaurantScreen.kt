@@ -1,5 +1,6 @@
 package com.example.savingsquadsfrontend.view.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -11,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,6 +26,7 @@ import com.example.savingsquadsfrontend.view.components.CustomTopBar
 import com.example.savingsquadsfrontend.view.components.RestaurantCard
 import com.example.savingsquadsfrontend.view.components.RestaurantItemCard
 import com.example.savingsquadsfrontend.view.theme.SavingsquadsfrontendTheme
+import com.example.savingsquadsfrontend.viewModel.CartViewModel
 import com.example.savingsquadsfrontend.viewModel.RestaurantViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -32,7 +35,9 @@ fun RestaurantScreen(
     navController: NavController,
     restaurantViewModel: RestaurantViewModel,
     restaurantIndex:Int,
+    cartViewModel: CartViewModel
 ) {
+    Log.d("Restaurant Screen", "Initial Cart List: ${cartViewModel.cartList.collectAsState()}" )
 
     val restaurant = restaurantViewModel.restaurants.value[restaurantIndex]
 
@@ -67,12 +72,13 @@ fun RestaurantScreen(
             items(restaurant.menu) {
                     item ->
                 Spacer(modifier = Modifier.height(20.dp))
-                RestaurantItemCard(item)
+                RestaurantItemCard(item, cartViewModel)
             }
         }
 
     }
 }
+
 
 
 @Preview(showBackground = true)
@@ -83,6 +89,7 @@ fun RestaurantScreenPreview() {
     val fakeNavController = NavController(fakeContext)
     val restaurantViewModel = RestaurantViewModel()
     val index = 0 // First restaurant
+    val cartViewModel = CartViewModel()
 
     SavingsquadsfrontendTheme {
         // A surface container using the 'background' color from the theme
@@ -90,7 +97,7 @@ fun RestaurantScreenPreview() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            RestaurantScreen(fakeNavController, restaurantViewModel, index)
+            RestaurantScreen(fakeNavController, restaurantViewModel, index, cartViewModel)
         }
     }
 }
