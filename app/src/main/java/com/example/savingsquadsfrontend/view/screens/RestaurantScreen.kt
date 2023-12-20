@@ -1,5 +1,6 @@
 package com.example.savingsquadsfrontend.view.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -11,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,6 +37,7 @@ fun RestaurantScreen(
     restaurantIndex:Int,
     cartViewModel: CartViewModel
 ) {
+    Log.d("Restaurant Screen", "Initial Cart List: ${cartViewModel.cartList.collectAsState()}" )
 
     val restaurant = restaurantViewModel.restaurants.value[restaurantIndex]
 
@@ -75,6 +78,7 @@ fun RestaurantScreen(
 
     }
 }
+
 
 
 @Preview(showBackground = true)

@@ -13,6 +13,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -36,6 +37,8 @@ import com.example.savingsquadsfrontend.viewModel.RestaurantItem
 fun RestaurantItemCard(restaurantItem: RestaurantItem, cartViewModel: CartViewModel) {
 
     var quantity by remember { mutableIntStateOf(0) }
+
+    val cartList by cartViewModel.cartList.collectAsState()
 
     Card (
         modifier = Modifier
@@ -74,8 +77,10 @@ fun RestaurantItemCard(restaurantItem: RestaurantItem, cartViewModel: CartViewMo
                 onCounterChange = {
                     newCount ->
                     quantity = newCount
-                    cartViewModel.addToCart(CartItem(restaurantItem.name,restaurantItem.price,quantity))
+                    if (newCount != 0) cartViewModel.addToCart(CartItem(restaurantItem.name,restaurantItem.price,quantity))
+                    else cartViewModel.removeFromCart(CartItem(restaurantItem.name,restaurantItem.price,quantity))
 
+                    Log.d("RestaurantItemCard", "Here's the updated cartList: $cartList")
                 }
             )
         }

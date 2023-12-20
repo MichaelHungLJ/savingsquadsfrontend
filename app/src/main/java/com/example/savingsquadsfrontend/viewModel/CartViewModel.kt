@@ -1,6 +1,7 @@
 package com.example.savingsquadsfrontend.viewModel
 
 import android.util.Log
+import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.ViewModel
 import com.example.savingsquadsfrontend.model.data.CartItem
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,8 +18,7 @@ class CartViewModel : ViewModel() {
     val cartList = _cartList.asStateFlow()
 
     fun addToCart(cartItem: CartItem) {
-        val currentList = _cartList.value
-
+        val currentList = _cartList.value.toMutableList()
         val existingItem = currentList.find { it.name == cartItem.name }
 
         if (existingItem != null) {
@@ -29,13 +29,30 @@ class CartViewModel : ViewModel() {
         }
 
         _cartList.tryEmit(currentList)
-
-        Log.d("CartUpdate", "Item added to cart: $cartItem")
+        updateTotalSum()
+        Log.d("CartViewModel", "Added to cart")
     }
 
-    fun updateTotalSum (newSum : Double) {
-        _totalSum.value = newSum
+    fun removeFromCart(cartItem: CartItem) {
+        val currentList = _cartList.value.toMutableList()
+        val existingItem = currentList.find { it.name == cartItem.name }
+
+        currentList.remove(existingItem)
+
+        _cartList.tryEmit(currentList)
+        updateTotalSum()
+
+        Log.d("CartViewModel", "Removed from cart")
     }
 
+    fun updateTotalSum() {
+        var newSum : Double = 0.00;
+        val currentList = _cartList.value
+
+        currentList.forEach {
+            newSum += (it.quantity * it.price)
+        }
+        _totalSum.tryEmit(newSum)
+    }
 
 }
