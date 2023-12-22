@@ -16,25 +16,29 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = Pink50, // Use for action components
+    onPrimary = White50,
+    primaryContainer = Pink90, // Use for alternate text components
+    onPrimaryContainer = White100,
+    background = White0, // Overall app background
+    onBackground = White50,
+    surface = Pink60, // For card components
+    onSurface = White100, // For text in card components
+    inverseOnSurface = White50, // For subtext in card components
+    error = Pink80, // Example error color, adjust as needed
+    onError = White100 // Text color on error color
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = PrimaryPink,
-    secondary = SecondaryWhite,
-    tertiary = TertiaryLightPink
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    primary = Pink50, // Use for action components
+    onPrimary = White100,
+    primaryContainer = White100, // Use for alternate text components
+    onPrimaryContainer = Pink50,
+    background = White100, // Overall app background
+    onBackground = White50,
+    surface = White100, // For my card components
+    onSurface = White0, // For text in card components
+    inverseOnSurface = White50, // For subtext in card components
 )
 
 @Composable
