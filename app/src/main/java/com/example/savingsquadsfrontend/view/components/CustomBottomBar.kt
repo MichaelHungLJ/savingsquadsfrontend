@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.savingsquadsfrontend.view.theme.Typography
 
 @Composable
 fun CustomBottomBar (navController: NavController, nextPage: String,buttonName: String) {
@@ -43,7 +44,7 @@ fun CustomBottomBar (navController: NavController, nextPage: String,buttonName: 
         ) {
             Text(
                 text = buttonName,
-                fontSize = 18.sp,
+                style = Typography.displayMedium,
             )
         }
     }

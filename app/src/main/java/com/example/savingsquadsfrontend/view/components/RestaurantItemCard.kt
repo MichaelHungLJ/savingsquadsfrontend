@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.savingsquadsfrontend.R
 import com.example.savingsquadsfrontend.model.data.CartItem
+import com.example.savingsquadsfrontend.view.theme.Typography
 import com.example.savingsquadsfrontend.viewModel.CartViewModel
 import com.example.savingsquadsfrontend.viewModel.RestaurantItem
 
@@ -65,11 +66,13 @@ fun RestaurantItemCard(restaurantItem: RestaurantItem, cartViewModel: CartViewMo
             ){
                 Text(
                     text = restaurantItem.name,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 14.sp)
+                    style= Typography.labelMedium
+                )
                 Text(
                     text = "$"+ String.format("%.2f", restaurantItem.price),
-                    modifier = Modifier.padding(top=4.dp))
+                    modifier = Modifier.padding(top=4.dp),
+                    style = Typography.labelSmall
+                )
             }
 
             FoodCounter(

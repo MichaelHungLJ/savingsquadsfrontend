@@ -10,10 +10,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.savingsquadsfrontend.view.theme.SavingsquadsfrontendTheme
+import com.example.savingsquadsfrontend.view.theme.Typography
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -21,7 +24,9 @@ import com.example.savingsquadsfrontend.view.theme.SavingsquadsfrontendTheme
 fun CustomTopBar(screenName: String, navController: NavController, prevScreenTitle: String){
     TopAppBar(
         title = {
-                Text(text = prevScreenTitle)
+                Text(
+                    text = prevScreenTitle,
+                    style = Typography.displayLarge)
         },
         navigationIcon = {
             IconButton(
