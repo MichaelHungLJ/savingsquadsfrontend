@@ -35,13 +35,14 @@ fun CustomTopBar(screenName: String, navController: NavController, prevScreenTit
             ) {
                 Icon(
                     imageVector = Icons.Filled.ArrowBack,
-                    contentDescription = "Back icon")
+                    contentDescription = "Back icon",
+                    tint = MaterialTheme.colorScheme.onPrimary)
 
             }
         },
         colors = TopAppBarDefaults.smallTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            titleContentColor = MaterialTheme.colorScheme.primary
+            containerColor = MaterialTheme.colorScheme.primary,
+            titleContentColor = MaterialTheme.colorScheme.onPrimary
         )
     )
 }

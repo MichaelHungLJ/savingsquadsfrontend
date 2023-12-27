@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.savingsquadsfrontend.view.theme.SavingsquadsfrontendTheme
 import com.example.savingsquadsfrontend.view.theme.Typography
 
 @Composable
@@ -27,20 +29,18 @@ fun CustomBottomBar (navController: NavController, nextPage: String,buttonName: 
     Column (
         modifier = Modifier
             .fillMaxWidth()
-            .height(80.dp).background(Color.LightGray),
+            .height(80.dp).background(MaterialTheme.colorScheme.surface),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Button(
             onClick = { navController.navigate(nextPage) },
             modifier = Modifier.fillMaxSize()
                 .padding(horizontal = 30.dp,vertical = 10.dp),
-            shape = RoundedCornerShape(0.dp),
+            shape = RoundedCornerShape(10.dp),
             colors = ButtonDefaults.buttonColors(
-                contentColor = Color.Black ,
-                containerColor = Color.Gray,
-                disabledContainerColor = Color.Transparent,
-                disabledContentColor = Color.Gray),
+                contentColor = MaterialTheme.colorScheme.onPrimary ,
+                containerColor = MaterialTheme.colorScheme.primary),
         ) {
             Text(
                 text = buttonName,
@@ -55,5 +55,7 @@ fun CustomBottomBar (navController: NavController, nextPage: String,buttonName: 
 fun CustomBottomBarPreview() {
     val fakeNavController = rememberNavController() // Create a fake NavController for preview
 
-    CustomBottomBar(fakeNavController, "CartScreen", "Checkout")
+    SavingsquadsfrontendTheme {
+        CustomBottomBar(fakeNavController, "CartScreen", "Checkout")
+    }
 }

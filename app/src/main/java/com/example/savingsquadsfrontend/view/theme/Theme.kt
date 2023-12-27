@@ -17,13 +17,13 @@ import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
     primary = Pink50, // Use for action components
-    onPrimary = White50,
-    primaryContainer = Pink90, // Use for alternate text components
-    onPrimaryContainer = White100,
-    background = White0, // Overall app background
+    onPrimary = White100,
+    primaryContainer = White100, // Use for alternate text components
+    onPrimaryContainer = Pink50,
+    background = White100, // Overall app background
     onBackground = White50,
-    surface = Pink60, // For card components
-    onSurface = White100, // For text in card components
+    surface = White100, // For my card components
+    onSurface = White0, // For text in card components
     inverseOnSurface = White50, // For subtext in card components
     error = Pink80, // Example error color, adjust as needed
     onError = White100 // Text color on error color
@@ -39,13 +39,15 @@ private val LightColorScheme = lightColorScheme(
     surface = White100, // For my card components
     onSurface = White0, // For text in card components
     inverseOnSurface = White50, // For subtext in card components
+    error = Pink80, // Example error color, adjust as needed
+    onError = White100 // Text color on error color
 )
 
 @Composable
 fun SavingsquadsfrontendTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {

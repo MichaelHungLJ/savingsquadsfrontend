@@ -2,6 +2,9 @@ package com.example.savingsquadsfrontend.view.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -39,68 +42,58 @@ fun PointCard (navController: NavController) {
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
         ){
-            PointHeader(navController)
-        }
-    }
-}
-@Composable
-fun PointHeader(navController: NavController) {
-    Column (
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
 
-        Text(
-            text = "Points: 800",
-            modifier = Modifier
-                .size(width = 260.dp, height = 46.dp)
-                .padding(top = 5.dp, start = 5.dp),
-            fontSize = 26.sp,
-            fontWeight = FontWeight.Bold,
-        )
+            Spacer(modifier = Modifier.height(30.dp))
 
-        Button(
-            modifier = Modifier
-                .size(width = 100.dp, height = 20.dp)
-                .align(Alignment.End)
-                .padding(end = 10.dp),
-            onClick = { navController.navigate("VoucherRedemptionScreen")
+            Row (
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ){
+                Text(
+                    text = "Points: 800",
+                    modifier = Modifier
+                        .size(width = 220.dp, height = 40.dp)
+                        .padding( start = 10.dp),
+                    fontSize = 26.sp,
+                    fontWeight = FontWeight.Bold,
+                )
+
+                Button(
+                    modifier = Modifier
+                        .size(width = 100.dp, height = 20.dp)
+                        .padding(end = 10.dp),
+                    onClick = { navController.navigate("VoucherRedemptionScreen") },
+                    contentPadding = PaddingValues(horizontal = 4.dp, vertical = 2.dp )
+                ) {
+                    Text(
+                        text = "Redeem",
+                        fontSize = 8.sp,)
+                }
             }
-        ) {
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+
             Text(
-                text = "Redeem",
-                fontSize = 6.sp)
+                text = "Lifetime saved: $50.00",
+                fontSize = 8.sp,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 10.dp, end = 10.dp)
+
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            LinearProgressIndicator(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(10.dp).padding(start = 10.dp, end = 10.dp),
+                progress = 0.5f // Set your progress value here (between 0.0 and 1.0)
+            )
+
         }
-
-        Text(
-            text = "Lifetime saved: $50.00",
-            fontSize = 8.sp,
-            modifier = Modifier
-                .align(Alignment.Start)
-                .padding(5.dp)
-        )
-
-        PointProgress()
-
-
-    }
-}
-@Preview(showBackground = true)
-@Composable
-fun PointProgress(){
-    Column (
-        modifier = Modifier.size(width = 270.dp, height = 40.dp),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ){
-        LinearProgressIndicator(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(10.dp),
-            progress = 0.5f // Set your progress value here (between 0.0 and 1.0)
-        )
-
     }
 }
 
@@ -112,3 +105,4 @@ fun PointHeaderPreview() {
         PointCard(navController = fakeNavController)
     }
 }
+

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,7 +23,7 @@ import com.example.savingsquadsfrontend.view.theme.SavingsquadsfrontendTheme
 @Composable
 fun HomeScreenHeader(logo: Int) {
     Column(
-        modifier = Modifier.fillMaxWidth().height(56.dp).background(Color.Gray),
+        modifier = Modifier.fillMaxWidth().height(56.dp).background(MaterialTheme.colorScheme.primary),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -30,6 +31,8 @@ fun HomeScreenHeader(logo: Int) {
             painter = painterResource(id = logo),
             contentDescription = "FoodPanda Logo",
             modifier = Modifier.width(200.dp).height(40.dp),
+            tint = MaterialTheme.colorScheme.onPrimary
+            
         )
     }
 }
