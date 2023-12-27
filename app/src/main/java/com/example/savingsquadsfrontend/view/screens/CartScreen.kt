@@ -66,7 +66,7 @@ fun CartScreen (navController: NavController, cartViewModel: CartViewModel) {
                         .fillMaxWidth()
                         .height(350.dp)
                         .padding(start = 40.dp, top = 20.dp, end = 40.dp)
-                        .background(Color.Gray),
+                        .background(MaterialTheme.colorScheme.surface),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ){
                     Spacer(modifier = Modifier.padding(top = 10.dp))
@@ -85,14 +85,14 @@ fun CartScreen (navController: NavController, cartViewModel: CartViewModel) {
                 Column (
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(330.dp)
+                        .height(280.dp)
                         .padding(start = 40.dp, top = 20.dp, end = 40.dp)
-                        .background(Color.Gray),
+                        .background(MaterialTheme.colorScheme.surface),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ){
                     Spacer(modifier = Modifier.padding(top = 10.dp))
 
-                    CartCostBar(name = "Sub total", cost = totalCost)
+                    CartCostBar(name = "Sub-Total", cost = totalCost)
 
                     CartCostBar(name = "Delivery Fee", cost = 3.99)
                 }

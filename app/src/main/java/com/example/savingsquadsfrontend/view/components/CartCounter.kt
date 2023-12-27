@@ -8,6 +8,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -47,8 +48,8 @@ fun CartCounter(quantityState : Int, onQuantityChange: (Int)-> Unit){
                 .fillMaxHeight(),
             contentPadding = PaddingValues(),
             colors = ButtonDefaults.buttonColors(
-                contentColor = Color.Black,
-                containerColor = Color.Transparent,
+                contentColor = MaterialTheme.colorScheme.onPrimary,
+                containerColor = MaterialTheme.colorScheme.primary,
                 disabledContainerColor = Color.Transparent,
                 disabledContentColor = Color.Gray),
         ) {
@@ -57,7 +58,8 @@ fun CartCounter(quantityState : Int, onQuantityChange: (Int)-> Unit){
 
         Text(
             text = "$count",
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onSurface
         )
 
         Button(
@@ -70,8 +72,8 @@ fun CartCounter(quantityState : Int, onQuantityChange: (Int)-> Unit){
                 .fillMaxHeight(),
             contentPadding = PaddingValues(),
             colors = ButtonDefaults.buttonColors(
-                contentColor = Color.Black,
-                containerColor = Color.Transparent,
+                contentColor = MaterialTheme.colorScheme.onPrimary,
+                containerColor = MaterialTheme.colorScheme.primary,
                 disabledContainerColor = Color.Transparent,
                 disabledContentColor = Color.Gray),
         ) {

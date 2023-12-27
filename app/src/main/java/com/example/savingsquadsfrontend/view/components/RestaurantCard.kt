@@ -1,6 +1,8 @@
 package com.example.savingsquadsfrontend.view.components
 
+import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,11 +12,16 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -22,6 +29,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.savingsquadsfrontend.R
 import com.example.savingsquadsfrontend.view.theme.SavingsquadsfrontendTheme
+import com.example.savingsquadsfrontend.view.theme.Typography
 import com.example.savingsquadsfrontend.viewModel.Restaurant
 import com.example.savingsquadsfrontend.viewModel.RestaurantItem
 
@@ -29,21 +37,19 @@ import com.example.savingsquadsfrontend.viewModel.RestaurantItem
 @Composable
 fun RestaurantCard (navController: NavController, index:Int, restaurant: Restaurant, clickable: Boolean) {
 
-
-    ElevatedCard (
+    ElevatedCard(
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 6.dp
+            defaultElevation = 1.5.dp
         ),
         shape = RoundedCornerShape(0.dp),
         modifier = Modifier
             .size(width = 300.dp, height = 150.dp)
             .clickable(
                 enabled = clickable
-            ) { navController.navigate("RestaurantScreen/$index") }
-        ,
+            ) { navController.navigate("RestaurantScreen/$index") },
     ){
         Column (
-            modifier = Modifier,
+            modifier = Modifier.background(MaterialTheme.colorScheme.surface),
             ) {
             Image(
                 painter = painterResource(id = restaurant.image),
@@ -55,8 +61,9 @@ fun RestaurantCard (navController: NavController, index:Int, restaurant: Restaur
             )
             Text(
                 modifier = Modifier.padding(start = 10.dp, top = 8.dp),
-                fontSize = 12.sp,
-                text = restaurant.name
+                text = restaurant.name,
+                style = Typography.titleMedium,
+                color = MaterialTheme.colorScheme.onSurface,
             )
         }
     }
