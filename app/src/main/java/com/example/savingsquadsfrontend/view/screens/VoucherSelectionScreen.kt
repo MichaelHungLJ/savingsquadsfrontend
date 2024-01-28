@@ -24,8 +24,8 @@ import com.example.savingsquadsfrontend.view.theme.SavingsquadsfrontendTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun VoucherSelectionScreen (navController: NavController) {
-    val voucher = Voucher("Free Delivery", "Min spend $30", 3.99)
 
+    val voucher = Voucher("Free Delivery", "Min spend $30", 3.99)
 
     Scaffold (
         modifier = Modifier.fillMaxSize(),
