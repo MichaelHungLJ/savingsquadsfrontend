@@ -10,7 +10,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -18,9 +17,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.savingsquadsfrontend.api.LoginRequest
-import com.example.savingsquadsfrontend.api.RetrofitClient
 import com.example.savingsquadsfrontend.api.TokenStorage
-import com.example.savingsquadsfrontend.api.UserRepository
 import com.example.savingsquadsfrontend.view.screens.CartScreen
 import com.example.savingsquadsfrontend.view.screens.HomeScreen
 import com.example.savingsquadsfrontend.view.screens.RestaurantScreen
@@ -31,17 +28,12 @@ import com.example.savingsquadsfrontend.viewModel.CartViewModel
 import com.example.savingsquadsfrontend.viewModel.RestaurantViewModel
 import com.example.savingsquadsfrontend.viewModel.UserViewModel
 import com.example.savingsquadsfrontend.viewModel.VoucherRedemptionViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val tokenStorage by lazy { TokenStorage(this) }
-
-    private val userRepository by lazy {
-        UserRepository(RetrofitClient.apiService, tokenStorage) }
-
-    private val userViewModel by viewModels<UserViewModel> {
-        viewModelFactory { userRepository }
-    }
+    private val userViewModel by viewModels<UserViewModel>()
 
     private val restaurantViewModel by viewModels<RestaurantViewModel>()
     private val voucherRedemptionViewModel by viewModels<VoucherRedemptionViewModel>()
@@ -49,9 +41,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        RetrofitClient.init(tokenStorage)
 
-        val userViewModel by viewModels<UserViewModel> ()
 
         val testAccount = LoginRequest("michael@example.com", "michaeltest") // hardcoded data to login
         userViewModel.loginUser(testAccount)
@@ -75,7 +65,6 @@ class MainActivity : ComponentActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-
         if (isFinishing) {
             userViewModel.logoutUser()
         }
