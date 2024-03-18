@@ -5,22 +5,21 @@ import com.example.savingsquadsfrontend.api.ApiService
 import com.example.savingsquadsfrontend.api.LoginRequest
 import com.example.savingsquadsfrontend.api.LoginResponse
 import com.example.savingsquadsfrontend.api.LogoutResponse
-import com.example.savingsquadsfrontend.api.TokenStorage
+import com.example.savingsquadsfrontend.api.Voucher
+import com.example.savingsquadsfrontend.api.VoucherResponse
 import com.example.savingsquadsfrontend.domain.UserRepository
 import java.lang.RuntimeException
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
-    private val tokenStorage: TokenStorage,
 ) : UserRepository {
 
     override suspend fun loginUser( loginRequest: LoginRequest) : Result<LoginResponse> {
         return try {
             val response = apiService.loginUser(loginRequest)
             if (response.isSuccessful) {
-                Log.v("Login", "Success ${response.body()!!.jwt}")
-//                tokenStorage.storeToken(response.body()!!.jwt)
+                Log.v("Login", "Success ${response.body()}")
                 Result.success(response.body()!!)
             }
             else {
@@ -37,7 +36,6 @@ class UserRepositoryImpl @Inject constructor(
         return try {
             val response = apiService.logoutUser()
             if (response.isSuccessful) {
-                tokenStorage.clearToken()
                 Result.success(response.body()!!)
             } else {
                 // handle error response
@@ -48,7 +46,21 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun authenticate() {
-        TODO("Not yet implemented")
+    override suspend fun getUserVoucher(): Result<List<Voucher>?> {
+        return try {
+            val response = apiService.getUserVouchers()
+            if (response.isSuccessful) {
+                // Now we extract the list from the wrapper
+                val vouchersList = response.body()?.vouchers
+                Log.v("Voucher", "Response Size: ${vouchersList?.size ?: "No size"}")
+                Result.success(vouchersList)
+            } else {
+                Log.v("Voucher", "Error: ${response.errorBody()?.string() ?: "Unknown error"}")
+                Result.failure(RuntimeException("Voucher fetch error: ${response.message()}"))
+            }
+        } catch (e: Exception) {
+            Log.v("Voucher", "Exception: ${e.message}")
+            Result.failure(e)
+        }
     }
 }

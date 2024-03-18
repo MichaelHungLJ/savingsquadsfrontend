@@ -9,15 +9,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.savingsquadsfrontend.api.LoginRequest
-import com.example.savingsquadsfrontend.api.TokenStorage
 import com.example.savingsquadsfrontend.view.screens.CartScreen
 import com.example.savingsquadsfrontend.view.screens.HomeScreen
 import com.example.savingsquadsfrontend.view.screens.RestaurantScreen
@@ -34,10 +31,10 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val userViewModel by viewModels<UserViewModel>()
-
     private val restaurantViewModel by viewModels<RestaurantViewModel>()
     private val voucherRedemptionViewModel by viewModels<VoucherRedemptionViewModel>()
     private val cartViewModel by viewModels<CartViewModel>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +54,7 @@ class MainActivity : ComponentActivity() {
                         restaurantViewModel = restaurantViewModel,
                         voucherRedemptionViewModel = voucherRedemptionViewModel,
                         cartViewModel = cartViewModel,
+                        userViewModel = userViewModel
                     )
                 }
             }
@@ -70,34 +68,13 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-
-    val restaurantViewModel = RestaurantViewModel()
-    val voucherRedemptionViewModel = VoucherRedemptionViewModel()
-    val cartViewModel = CartViewModel()
-
-
-    SavingsquadsfrontendTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
-        ) {
-            VoucherApp(
-                restaurantViewModel = restaurantViewModel,
-                voucherRedemptionViewModel = voucherRedemptionViewModel,
-                cartViewModel = cartViewModel,
-            )
-        }
-    }
-}
 
 @Composable
 fun VoucherApp(
     restaurantViewModel: RestaurantViewModel,
     voucherRedemptionViewModel: VoucherRedemptionViewModel,
-    cartViewModel: CartViewModel
+    cartViewModel: CartViewModel,
+    userViewModel: UserViewModel
 ) {
     val navController = rememberNavController()
 
@@ -138,4 +115,27 @@ fun VoucherApp(
 
 }
 
+
+//@Preview(showBackground = true)
+//@Composable
+//fun GreetingPreview() {
+//
+//    val restaurantViewModel = RestaurantViewModel()
+//    val voucherRedemptionViewModel = VoucherRedemptionViewModel()
+//    val cartViewModel = CartViewModel()
+//
+//
+//    SavingsquadsfrontendTheme {
+//        Surface(
+//            modifier = Modifier.fillMaxSize(),
+//            color = MaterialTheme.colorScheme.background
+//        ) {
+//            VoucherApp(
+//                restaurantViewModel = restaurantViewModel,
+//                voucherRedemptionViewModel = voucherRedemptionViewModel,
+//                cartViewModel = cartViewModel,
+//            )
+//        }
+//    }
+//}
 

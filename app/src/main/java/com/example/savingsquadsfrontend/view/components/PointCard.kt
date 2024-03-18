@@ -25,9 +25,11 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.savingsquadsfrontend.view.theme.SavingsquadsfrontendTheme
+import com.example.savingsquadsfrontend.viewModel.UserViewModel
 
 @Composable
-fun PointCard (navController: NavController) {
+fun PointCard (
+    navController: NavController) {
     ElevatedCard (
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
@@ -97,12 +99,12 @@ fun PointCard (navController: NavController) {
     }
 }
 
-@Preview
-@Composable
-fun PointHeaderPreview() {
-    val fakeNavController = rememberNavController() // Create a fake NavController for preview
-    SavingsquadsfrontendTheme {
-        PointCard(navController = fakeNavController)
-    }
-}
+//@Preview
+//@Composable
+//fun PointHeaderPreview() {
+//    val fakeNavController = rememberNavController() // Create a fake NavController for preview
+//    SavingsquadsfrontendTheme {
+//        PointCard(navController = fakeNavController)
+//    }
+//}
 

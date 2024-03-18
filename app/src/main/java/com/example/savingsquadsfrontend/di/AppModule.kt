@@ -1,15 +1,15 @@
 package com.example.savingsquadsfrontend.di
 
-import android.content.Context
 import com.example.savingsquadsfrontend.api.ApiService
-import com.example.savingsquadsfrontend.api.TokenStorage
 import com.example.savingsquadsfrontend.domain.UserRepository
 import com.example.savingsquadsfrontend.model.UserRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Cookie
+import okhttp3.CookieJar
+import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -19,33 +19,39 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    @Provides
-    @Singleton
-    fun provideUserRepository(apiService: ApiService, tokenStorage: TokenStorage): UserRepository {
-        return UserRepositoryImpl(apiService, tokenStorage)
-    }
-
     private val BASE_URL = "http://10.0.2.2:3000"
 
-    @Provides
-    @Singleton
-    fun provideTokenStorage(@ApplicationContext context: Context): TokenStorage {
-        return TokenStorage(context)
+    private val cookieJar = object : CookieJar {
+        private val cookieStore = mutableMapOf<String, List<Cookie>>()
+
+        override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
+            // Save cookies for the host
+            if (cookies.isNotEmpty()) {
+                cookieStore[url.host()] = cookies
+            }
+        }
+
+        override fun loadForRequest(url: HttpUrl): List<Cookie> {
+            // Load cookies for the host
+            return cookieStore[url.host()] ?: ArrayList()
+        }
     }
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(tokenStorage: TokenStorage): OkHttpClient {
+    fun provideUserRepository(apiService: ApiService): UserRepository {
+        return UserRepositoryImpl(apiService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
+            .cookieJar(cookieJar)
             .addInterceptor { chain ->
                 val original = chain.request()
                 val httpPath = original.url()
                 val requestBuilder = original.newBuilder()
-
-                if (!httpPath.encodedPath().endsWith("/v1/users/login")) {
-                    val jwtToken = tokenStorage.getToken() ?: ""
-                    requestBuilder.addHeader("Authorization", "Bearer $jwtToken")
-                }
                 val request = requestBuilder.build()
                 chain.proceed(request)
             }

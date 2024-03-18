@@ -4,6 +4,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import java.util.Date
 
 interface ApiService {
@@ -16,7 +17,7 @@ interface ApiService {
     suspend fun logoutUser(): Response<LogoutResponse>
 
     @GET("/v1/users/vouchers")
-    suspend fun getUserVouchers(): Response<List<VoucherResponse>>
+    suspend fun getUserVouchers(): Response<VoucherResponse>
 }
 
 
@@ -28,7 +29,6 @@ data class LoginRequest (
 
 data class LoginResponse (
     val message : String,
-    val jwt: String,
 )
 
 data class LogoutResponse (
@@ -36,6 +36,10 @@ data class LogoutResponse (
 )
 
 data class VoucherResponse (
+    val vouchers: List<Voucher>?
+)
+
+data class Voucher (
     val code: String,
     val description: String,
     val discount: Int,

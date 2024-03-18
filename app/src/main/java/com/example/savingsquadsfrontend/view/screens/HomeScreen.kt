@@ -28,12 +28,13 @@ import com.example.savingsquadsfrontend.view.components.PointCard
 import com.example.savingsquadsfrontend.view.components.RestaurantCard
 import com.example.savingsquadsfrontend.view.theme.SavingsquadsfrontendTheme
 import com.example.savingsquadsfrontend.viewModel.RestaurantViewModel
+import com.example.savingsquadsfrontend.viewModel.UserViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     navController: NavController,
-    restaurantViewModel: RestaurantViewModel
+    restaurantViewModel: RestaurantViewModel,
 
 ) {
     val restaurants = restaurantViewModel.restaurants
@@ -66,20 +67,20 @@ fun HomeScreen(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun HomeScreenPreview() {
-    val restaurantViewModel = RestaurantViewModel()
-    val fakeContext = LocalContext.current
-    val fakeNavController = NavController(fakeContext)
-
-    SavingsquadsfrontendTheme {
-        // A surface container using the 'background' color from the theme
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
-        ) {
-            HomeScreen(fakeNavController,restaurantViewModel)
-        }
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun HomeScreenPreview() {
+//    val restaurantViewModel = RestaurantViewModel()
+//    val fakeContext = LocalContext.current
+//    val fakeNavController = NavController(fakeContext)
+//
+//    SavingsquadsfrontendTheme {
+//        // A surface container using the 'background' color from the theme
+//        Surface(
+//            modifier = Modifier.fillMaxSize(),
+//            color = MaterialTheme.colorScheme.background
+//        ) {
+//            HomeScreen(fakeNavController,restaurantViewModel)
+//        }
+//    }
+//}

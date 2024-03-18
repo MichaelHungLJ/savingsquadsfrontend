@@ -3,6 +3,8 @@ package com.example.savingsquadsfrontend.domain
 import com.example.savingsquadsfrontend.api.LoginRequest
 import com.example.savingsquadsfrontend.api.LoginResponse
 import com.example.savingsquadsfrontend.api.LogoutResponse
+import com.example.savingsquadsfrontend.api.Voucher
+import com.example.savingsquadsfrontend.api.VoucherResponse
 
 interface UserRepository {
 
@@ -10,6 +12,6 @@ interface UserRepository {
 
     suspend fun logoutUser() : Result<LogoutResponse>
 
-    suspend fun authenticate()
+    suspend fun getUserVoucher() : Result<List<Voucher>?>
 
 }

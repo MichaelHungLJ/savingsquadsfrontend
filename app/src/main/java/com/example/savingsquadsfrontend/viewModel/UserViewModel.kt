@@ -1,6 +1,8 @@
 package com.example.savingsquadsfrontend.viewModel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.savingsquadsfrontend.api.LoginRequest
@@ -34,6 +36,15 @@ class UserViewModel @Inject constructor (
             }
             else {
                 Log.v("Logout", "Failed")
+            }
+        }
+    }
+
+    fun getUserVoucher() {
+        viewModelScope.launch {
+            val result = userRepository.getUserVoucher()
+            if (result.isSuccess) {
+                Log.v("Voucher", "Success")
             }
         }
     }
